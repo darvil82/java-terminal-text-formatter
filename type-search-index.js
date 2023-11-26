@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"textFormatter","l":"Color"},{"p":"textFormatter","l":"FormatOption"},{"p":"textFormatter","l":"TextFormatter"}];updateSearchResults();
