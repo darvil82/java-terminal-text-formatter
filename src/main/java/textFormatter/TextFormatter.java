@@ -122,6 +122,11 @@ public class TextFormatter {
 		return this;
 	}
 
+	/**
+	 * Sets the gap between concatenated formatters.
+	 * By default, this is {@code null}, which means that no gap will be added.
+	 * @param gap The gap between concatenated formatters.
+	 */
 	public TextFormatter withConcatGap(@Nullable String gap) {
 		this.concatGap = gap;
 		return this;
