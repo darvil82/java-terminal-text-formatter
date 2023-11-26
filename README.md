@@ -1,6 +1,6 @@
 ﻿# Terminal Text Formatter
 
-Text formatting utilities to easily format text for the terminal in Java.
+Text formatting utilities to easily format text on the terminal for Java.
 
 ## Installation
 

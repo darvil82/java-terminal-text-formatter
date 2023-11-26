@@ -5,7 +5,7 @@ plugins {
 
 group = "com.darvil"
 version = "0.0.1"
-description = "Text formatting utilities to easily format text for the terminal in Java"
+description = "Text formatting utilities to easily format text on the terminal for Java."
 
 repositories {
     mavenCentral()
