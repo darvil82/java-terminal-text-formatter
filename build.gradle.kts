@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.darvil"
-version = "0.0.1"
+version = "0.0.2"
 description = "Text formatting utilities to easily format text on the terminal for Java."
 
 repositories {
