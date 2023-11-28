@@ -230,9 +230,12 @@ public class TextFormatter {
 			var bgColor = this.getResetBgColor();
 
 			// if bg color is null, we can just reset everything then.
-			// also, it's not worth it to add any resetting sequences afterward, so just return this directly.
-			if (bgColor == null)
-				return FormatOption.RESET_ALL.seq();
+			// make sure to reset the foreground color as well (RESET_ALL gets rid of everything)
+			if (bgColor == null) {
+				buffer.append(FormatOption.RESET_ALL);
+				buffer.append(this.getResetFgColor());
+				return buffer.toString();
+			}
 
 			buffer.append(bgColor.bg());
 		}

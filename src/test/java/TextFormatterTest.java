@@ -69,4 +69,20 @@ public class TextFormatterTest {
 			formatter.toString()
 		);
 	}
+
+	@Test
+	public void testMiddleBackground() {
+		var formatter = new TextFormatter("yellow ", Color.BRIGHT_YELLOW)
+			.concat(
+				new TextFormatter("blue ")
+					.withBackgroundColor(Color.BLUE)
+			)
+			.concat(" and back to yellow");
+
+		assertEquals(
+			Color.BRIGHT_YELLOW + "yellow " + Color.BLUE.bg() + "blue " + FormatOption.RESET_ALL
+				+ Color.BRIGHT_YELLOW + " and back to yellow" + Color.BRIGHT_WHITE,
+			formatter.toString()
+		);
+	}
 }
