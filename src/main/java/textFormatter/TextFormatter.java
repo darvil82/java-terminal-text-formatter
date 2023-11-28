@@ -23,6 +23,18 @@ public class TextFormatter {
 	public static boolean enableSequences = true;
 
 	/**
+	 * The default color that should be used when no foreground color is specified (if {@link #startWithDefaultColorIfNotDefined}
+	 * is set to {@code true}), or when the foreground color is reset.
+	 */
+	public static @NotNull Color defaultColor = Color.BRIGHT_WHITE;
+
+	/**
+	 * When set to {@code true}, the default color will be used when no foreground color is specified.
+	 */
+	public static boolean startWithDefaultColorIfNotDefined = true;
+
+
+	/**
 	 * When set to {@code true}, the {@link #toString()} method will not add any terminal sequences, but rather
 	 * return the sequences that would be added by marking them as {@code ESC[<sequence here>]}
 	 */
@@ -192,6 +204,9 @@ public class TextFormatter {
 
 		if (this.foregroundColor != null)
 			buffer.append(this.foregroundColor);
+		else if (TextFormatter.startWithDefaultColorIfNotDefined)
+			buffer.append(TextFormatter.defaultColor);
+
 		if (this.backgroundColor != null)
 			buffer.append(this.backgroundColor.bg());
 
@@ -240,7 +255,7 @@ public class TextFormatter {
 	 */
 	private @NotNull Color getResetFgColor() {
 		if (this.parent == null)
-			return Color.BRIGHT_WHITE;
+			return TextFormatter.defaultColor;
 
 		if (this.parent.foregroundColor != null)
 			return this.parent.foregroundColor;
@@ -274,11 +289,12 @@ public class TextFormatter {
 
 		final var buff = new StringBuilder();
 
-		if (this.contents.contains("\n")) {
+		if (TextFormatter.enableSequences && this.contents.contains("\n")) {
 			// for some reason, some terminals reset sequences when a new line is added.
 			this.putContentsSanitized(buff);
 		} else {
-			buff.append(this.getStartSequences());
+			if (TextFormatter.enableSequences)
+				buff.append(this.getStartSequences());
 			buff.append(this.contents);
 		}
 
@@ -300,7 +316,8 @@ public class TextFormatter {
 			}
 		}
 
-		buff.append(this.getEndSequences());
+		if (TextFormatter.enableSequences)
+			buff.append(this.getEndSequences());
 
 		return buff.toString();
 	}
