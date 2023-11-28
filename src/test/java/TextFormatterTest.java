@@ -65,7 +65,7 @@ public class TextFormatterTest {
 		assertEquals(
 			Color.RED.bg() + "red background here, " + Color.BLUE.bg() + "blue background here, "
 				+ Color.BRIGHT_YELLOW.bg() + "now yellow" + Color.BLUE.bg() + " and back to blue"
-				+ Color.RED.bg() + ". back to red" + FormatOption.RESET_ALL,
+				+ Color.RED.bg() + ". back to red" + FormatOption.RESET_ALL + Color.BRIGHT_WHITE,
 			formatter.toString()
 		);
 	}
