@@ -177,7 +177,7 @@ public class TextFormatter {
 	 * @return {@code true} if the formatter is simple
 	 */
 	public boolean isSimple() {
-		return (this.contents.length() == 0 || this.formattingNotDefined())
+		return (this.contents.length() == 0 || this.isFormattingNotDefined())
 			&& this.concatList.size() == 0; // we cant skip if we need to concat stuff!
 	}
 
@@ -185,7 +185,7 @@ public class TextFormatter {
 	 * Returns whether the formatter has no formatting options, no foreground color, and no background color.
 	 * @return {@code true} if the formatter has no formatting options, no foreground color, and no background color
 	 */
-	public boolean formattingNotDefined() {
+	public boolean isFormattingNotDefined() {
 		return (
 			this.foregroundColor == null
 				&& this.backgroundColor == null
@@ -199,7 +199,7 @@ public class TextFormatter {
 	 * @return the start sequences to add to the contents of the formatter
 	 */
 	private @NotNull String getStartSequences() {
-		if (this.formattingNotDefined()) return "";
+		if (this.isFormattingNotDefined()) return "";
 		final var buffer = new StringBuilder();
 
 		if (this.foregroundColor != null)
@@ -223,7 +223,7 @@ public class TextFormatter {
 	 * @return the end sequences to add to the contents of the formatter
 	 */
 	private @NotNull String getEndSequences() {
-		if (this.formattingNotDefined()) return "";
+		if (this.isFormattingNotDefined()) return "";
 		final var buffer = new StringBuilder();
 
 		if (this.backgroundColor != null) {

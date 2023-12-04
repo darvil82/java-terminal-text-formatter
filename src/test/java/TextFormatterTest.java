@@ -85,4 +85,17 @@ public class TextFormatterTest {
 			formatter.toString()
 		);
 	}
+
+	@Test
+	public void testNoColor() {
+		var formatter = new TextFormatter("red text here, ", Color.RED)
+			.concat(new TextFormatter("nothing interesting here").addFormat(FormatOption.ITALIC))
+			.concat(" end str");
+
+		assertEquals(
+			Color.RED + "red text here, " + FormatOption.ITALIC +"nothing interesting here"
+				+ FormatOption.ITALIC.reset() + " end str" + Color.BRIGHT_WHITE,
+			formatter.toString()
+		);
+	}
 }
