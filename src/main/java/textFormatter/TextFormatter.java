@@ -204,7 +204,7 @@ public class TextFormatter {
 
 		if (this.foregroundColor != null)
 			buffer.append(this.foregroundColor);
-		else if (TextFormatter.startWithDefaultColorIfNotDefined)
+		else if (TextFormatter.startWithDefaultColorIfNotDefined && this.parent == null)
 			buffer.append(TextFormatter.defaultColor);
 
 		if (this.backgroundColor != null)
@@ -225,6 +225,11 @@ public class TextFormatter {
 	private @NotNull String getEndSequences() {
 		if (this.isFormattingNotDefined()) return "";
 		final var buffer = new StringBuilder();
+		final Runnable addResetFg = () -> {
+			var resetFgColor = this.getResetFgColor();
+			if (resetFgColor != null)
+				buffer.append(resetFgColor);
+		};
 
 		if (this.backgroundColor != null) {
 			var bgColor = this.getResetBgColor();
@@ -233,7 +238,7 @@ public class TextFormatter {
 			// make sure to reset the foreground color as well (RESET_ALL gets rid of everything)
 			if (bgColor == null) {
 				buffer.append(FormatOption.RESET_ALL);
-				buffer.append(this.getResetFgColor());
+				addResetFg.run();
 				return buffer.toString();
 			}
 
@@ -245,7 +250,7 @@ public class TextFormatter {
 		}
 
 		if (this.foregroundColor != null) {
-			buffer.append(this.getResetFgColor());
+			addResetFg.run();
 		}
 
 		return buffer.toString();
@@ -256,9 +261,12 @@ public class TextFormatter {
 	 * parent formatters. If no parent formatter has a foreground color, then {@link Color#BRIGHT_WHITE} is returned.
 	 * @return the {@link Color} that should properly reset the foreground color
 	 */
-	private @NotNull Color getResetFgColor() {
-		if (this.parent == null)
-			return TextFormatter.defaultColor;
+	private @Nullable Color getResetFgColor() {
+		if (this.parent == null) {
+			if (this.foregroundColor != TextFormatter.defaultColor)
+				return TextFormatter.defaultColor;
+			return null;
+		}
 
 		if (this.parent.foregroundColor != null)
 			return this.parent.foregroundColor;

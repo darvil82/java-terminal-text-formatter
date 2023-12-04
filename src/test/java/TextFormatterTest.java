@@ -1,3 +1,4 @@
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import textFormatter.Color;
 import textFormatter.FormatOption;
@@ -6,14 +7,15 @@ import textFormatter.TextFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TextFormatterTest {
-	static {
-		TextFormatter.startWithDefaultColorIfNotDefined = false;
+	private static void check(@NotNull String expected, @NotNull String actual) {
+		System.out.printf("Expected : %s%nActual   : %s%n", expected, actual);
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testSimple() {
 		var formatter = new TextFormatter("Hello World").concat("!");
-		assertEquals("Hello World!", formatter.toString());
+		check("Hello World!", formatter.toString());
 	}
 
 	@Test
@@ -27,7 +29,7 @@ public class TextFormatterTest {
 			)
 			.concat("!");
 
-		assertEquals("Hello World! (Here is a sub-formatter (with another sub-formatter))!", formatter.toString());
+		check("Hello World! (Here is a sub-formatter (with another sub-formatter))!", formatter.toString());
 	}
 
 	@Test
@@ -40,7 +42,7 @@ public class TextFormatterTest {
 			)
 			.concat(". back to red");
 
-		assertEquals(
+		check(
 			Color.RED + "red text here, " + Color.BLUE + "blue text here, " + Color.BRIGHT_YELLOW
 				+ "now yellow" + Color.BLUE + " and back to blue" + Color.RED + ". back to red" + Color.BRIGHT_WHITE,
 			formatter.toString()
@@ -62,10 +64,10 @@ public class TextFormatterTest {
 			)
 			.concat(". back to red");
 
-		assertEquals(
-			Color.RED.bg() + "red background here, " + Color.BLUE.bg() + "blue background here, "
-				+ Color.BRIGHT_YELLOW.bg() + "now yellow" + Color.BLUE.bg() + " and back to blue"
-				+ Color.RED.bg() + ". back to red" + FormatOption.RESET_ALL + Color.BRIGHT_WHITE,
+		check(
+			Color.BRIGHT_WHITE + Color.RED.bg() + "red background here, " + Color.BLUE.bg()
+				+ "blue background here, " + Color.BRIGHT_YELLOW.bg() + "now yellow" + Color.BLUE.bg()
+				+ " and back to blue" + Color.RED.bg() + ". back to red" + FormatOption.RESET_ALL + Color.BRIGHT_WHITE,
 			formatter.toString()
 		);
 	}
@@ -79,7 +81,7 @@ public class TextFormatterTest {
 			)
 			.concat(" and back to yellow");
 
-		assertEquals(
+		check(
 			Color.BRIGHT_YELLOW + "yellow " + Color.BLUE.bg() + "blue " + FormatOption.RESET_ALL
 				+ Color.BRIGHT_YELLOW + " and back to yellow" + Color.BRIGHT_WHITE,
 			formatter.toString()
@@ -87,15 +89,22 @@ public class TextFormatterTest {
 	}
 
 	@Test
-	public void testNoColor() {
-		var formatter = new TextFormatter("red text here, ", Color.RED)
-			.concat(new TextFormatter("nothing interesting here").addFormat(FormatOption.ITALIC))
-			.concat(" end str");
+	public void testEmpty() {
+		var formatter = new TextFormatter("parent start. ", Color.RED)
+			.concat(
+				new TextFormatter("red text here, ")
+					.concat(new TextFormatter().addFormat(FormatOption.ITALIC).concat("subsub"))
+			).concat(" end str");
 
-		assertEquals(
-			Color.RED + "red text here, " + FormatOption.ITALIC +"nothing interesting here"
+		check(
+			Color.RED + "parent start. red text here, " + FormatOption.ITALIC + "subsub"
 				+ FormatOption.ITALIC.reset() + " end str" + Color.BRIGHT_WHITE,
 			formatter.toString()
 		);
+	}
+
+	@Test
+	public void testStartWithDefault() {
+		check(Color.BRIGHT_WHITE + "test", new TextFormatter("test", Color.BRIGHT_WHITE).toString());
 	}
 }
