@@ -107,12 +107,4 @@ public class TextFormatterTest {
 	public void testStartWithDefault() {
 		check(Color.BRIGHT_WHITE + "test", new TextFormatter("test", Color.BRIGHT_WHITE).toString());
 	}
-
-	@Test
-	public void testNewline() {
-		check(
-			Color.BRIGHT_YELLOW + "hello\n" + Color.BRIGHT_YELLOW + "world" + Color.BRIGHT_WHITE,
-			new TextFormatter("hello\nworld", Color.BRIGHT_YELLOW).toString()
-		);
-	}
 }

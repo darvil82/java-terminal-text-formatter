@@ -2,7 +2,6 @@ package textFormatter;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import utils.UtlString;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -300,14 +299,10 @@ public class TextFormatter {
 
 		final var buff = new StringBuilder();
 
-		if (TextFormatter.enableSequences && this.contents.contains("\n")) {
-			// for some reason, some terminals reset sequences when a new line is added.
-			this.putContentsSanitized(buff);
-		} else {
-			if (TextFormatter.enableSequences)
-				buff.append(this.getStartSequences());
-			buff.append(this.contents);
-		}
+		if (TextFormatter.enableSequences)
+			buff.append(this.getStartSequences());
+
+		buff.append(this.contents);
 
 		// then do the same thing for the concatenated formatters
 		{
@@ -331,34 +326,6 @@ public class TextFormatter {
 			buff.append(this.getEndSequences());
 
 		return buff.toString();
-	}
-
-	/**
-	 * Adds the start sequences to the contents of the formatter. This is done by adding the start sequences after
-	 * every new line. (and at the first line)
-	 * @param buff The buffer to add the contents to.
-	 */
-	private void putContentsSanitized(@NotNull StringBuilder buff) {
-		final var split = UtlString.splitAtLeadingWhitespace(this.contents);
-		final var startSequences = this.getStartSequences();
-
-		// start by adding the leading whitespace
-		buff.append(split.first());
-
-		// then add the start sequences
-		buff.append(startSequences);
-
-		char[] charArray = split.second().toCharArray();
-		for (int i = 0; i < charArray.length; i++) {
-			var chr = charArray[i];
-
-			// add the character
-			buff.append(chr);
-
-			// if we encounter a new line, and the next character is not a whitespace, then add the start sequences
-			if (chr == '\n' && (i < charArray.length - 1 && !Character.isWhitespace(charArray[i + 1])))
-				buff.append(startSequences);
-		}
 	}
 
 	/** Returns a template for a {@link TextFormatter} that is used for errors */
