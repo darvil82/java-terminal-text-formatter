@@ -352,12 +352,12 @@ public class TextFormatter {
 		for (int i = 0; i < charArray.length; i++) {
 			var chr = charArray[i];
 
+			// add the character
+			buff.append(chr);
+
 			// if we encounter a new line, and the next character is not a whitespace, then add the start sequences
 			if (chr == '\n' && (i < charArray.length - 1 && !Character.isWhitespace(charArray[i + 1])))
 				buff.append(startSequences);
-
-			// add the character
-			buff.append(chr);
 		}
 	}
 
