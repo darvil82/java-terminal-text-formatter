@@ -7,10 +7,6 @@ group = "com.darvil"
 version = "1.0.0"
 description = "Text formatting utilities to easily format text on the terminal for Java."
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation("com.darvil:utils:+")
 
@@ -44,6 +40,8 @@ publishing {
             url = uri("https://repsy.io/mvn/darvil/java")
             credentials(PasswordCredentials::class)
         }
+
+        mavenLocal()
     }
 
     publications {
