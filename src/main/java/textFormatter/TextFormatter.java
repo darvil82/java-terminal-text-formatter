@@ -176,8 +176,8 @@ public class TextFormatter {
 	 * @return {@code true} if the formatter is simple
 	 */
 	public boolean isSimple() {
-		return (this.contents.length() == 0 || this.isFormattingNotDefined())
-			&& this.concatList.size() == 0; // we cant skip if we need to concat stuff!
+		return (this.contents.isEmpty() || this.isFormattingNotDefined())
+			&& this.concatList.isEmpty(); // we cant skip if we need to concat stuff!
 	}
 
 	/**
