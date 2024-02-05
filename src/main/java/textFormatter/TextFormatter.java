@@ -78,12 +78,34 @@ public class TextFormatter {
 	}
 
 	/**
+	 * Creates a new {@link TextFormatter} with the specified contents and colors.
+	 * @param contents The contents of the formatter.
+	 * @param foreground The foreground color of the formatter.
+	 * @param background The background color of the formatter.
+	 */
+	public static TextFormatter of(@NotNull String contents, @NotNull Color foreground, @NotNull Color background) {
+		return TextFormatter.of(contents).withColors(foreground, background);
+	}
+
+	/**
 	 * Creates a new {@link TextFormatter} with empty contents.
 	 * @return a new {@link TextFormatter} with empty contents
 	 */
 	public static TextFormatter create() {
 		return new TextFormatter("");
 	}
+
+	/**
+	 * Returns a new {@link TextFormatter} with the specified contents and the error formatting.
+	 * <p>
+	 * The error formatting is a bold, black text with a bright red background.
+	 * @param msg The contents of the formatter.
+	 * @return a new {@link TextFormatter} with the specified contents and the error formatting
+	 * */
+	public static @NotNull TextFormatter error(@NotNull String msg) {
+		return TextFormatter.of(msg, Color.BLACK, Color.BRIGHT_RED).addFormat(FormatOption.BOLD);
+	}
+
 
 	/**
 	 * Adds the specified formatting options to the formatter.
@@ -334,11 +356,6 @@ public class TextFormatter {
 			buff.append(this.getEndSequences());
 
 		return buff.toString();
-	}
-
-	/** Returns a template for a {@link TextFormatter} that is used for errors */
-	public static @NotNull TextFormatter ERROR(@NotNull String msg) {
-		return TextFormatter.of(msg, Color.BRIGHT_RED).addFormat(FormatOption.REVERSE, FormatOption.BOLD);
 	}
 
 	/**
