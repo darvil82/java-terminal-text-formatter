@@ -14,17 +14,17 @@ public class TextFormatterTest {
 
 	@Test
 	public void testSimple() {
-		var formatter = new TextFormatter("Hello World").concat("!");
+		var formatter = TextFormatter.of("Hello World").concat("!");
 		check("Hello World!", formatter.toString());
 	}
 
 	@Test
 	public void testSubFormatters() {
-		var formatter = new TextFormatter("Hello World")
+		var formatter = TextFormatter.of("Hello World")
 			.concat("! ")
 			.concat(
-				new TextFormatter("(Here is a sub-formatter")
-					.concat(new TextFormatter(" (with another").concat(" sub-formatter)"))
+				TextFormatter.of("(Here is a sub-formatter")
+					.concat(TextFormatter.of(" (with another").concat(" sub-formatter)"))
 					.concat(")")
 			)
 			.concat("!");
@@ -34,10 +34,10 @@ public class TextFormatterTest {
 
 	@Test
 	public void testForegroundColoring() {
-		var formatter = new TextFormatter("red text here, ", Color.RED)
+		var formatter = TextFormatter.of("red text here, ", Color.RED)
 			.concat(
-				new TextFormatter("blue text here, ", Color.BLUE)
-					.concat(new TextFormatter("now yellow", Color.BRIGHT_YELLOW))
+				TextFormatter.of("blue text here, ", Color.BLUE)
+					.concat(TextFormatter.of("now yellow", Color.BRIGHT_YELLOW))
 					.concat(" and back to blue")
 			)
 			.concat(". back to red");
@@ -51,13 +51,13 @@ public class TextFormatterTest {
 
 	@Test
 	public void testBackgroundColoring() {
-		var formatter = new TextFormatter("red background here, ")
+		var formatter = TextFormatter.of("red background here, ")
 			.withBackgroundColor(Color.RED)
 			.concat(
-				new TextFormatter("blue background here, ")
+				TextFormatter.of("blue background here, ")
 					.withBackgroundColor(Color.BLUE)
 					.concat(
-						new TextFormatter("now yellow")
+						TextFormatter.of("now yellow")
 							.withBackgroundColor(Color.BRIGHT_YELLOW)
 					)
 					.concat(" and back to blue")
@@ -74,9 +74,9 @@ public class TextFormatterTest {
 
 	@Test
 	public void testMiddleBackground() {
-		var formatter = new TextFormatter("yellow ", Color.BRIGHT_YELLOW)
+		var formatter = TextFormatter.of("yellow ", Color.BRIGHT_YELLOW)
 			.concat(
-				new TextFormatter("blue ")
+				TextFormatter.of("blue ")
 					.withBackgroundColor(Color.BLUE)
 			)
 			.concat(" and back to yellow");
@@ -90,10 +90,10 @@ public class TextFormatterTest {
 
 	@Test
 	public void testEmpty() {
-		var formatter = new TextFormatter("parent start. ", Color.RED)
+		var formatter = TextFormatter.of("parent start. ", Color.RED)
 			.concat(
-				new TextFormatter("red text here, ")
-					.concat(new TextFormatter().addFormat(FormatOption.ITALIC).concat("subsub"))
+				TextFormatter.of("red text here, ")
+					.concat(TextFormatter.create().addFormat(FormatOption.ITALIC).concat("subsub"))
 			).concat(" end str");
 
 		check(
@@ -105,6 +105,6 @@ public class TextFormatterTest {
 
 	@Test
 	public void testStartWithDefault() {
-		check(Color.BRIGHT_WHITE + "test", new TextFormatter("test", Color.BRIGHT_WHITE).toString());
+		check(Color.BRIGHT_WHITE + "test", TextFormatter.of("test", Color.BRIGHT_WHITE).toString());
 	}
 }

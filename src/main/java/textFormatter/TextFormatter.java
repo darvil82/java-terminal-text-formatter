@@ -40,24 +40,32 @@ public class TextFormatter {
 	public static boolean debug = false;
 
 	/** A list of all the formatting options that should be applied to the text. */
-	private final @NotNull ArrayList<FormatOption> formatOptions = new ArrayList<>();
+	private final @NotNull ArrayList<FormatOption> formatOptions = new ArrayList<>(5);
 
 	/** A list of all the formatters that should be concatenated to this formatter. */
-	private final @NotNull List<TextFormatter> concatList = new ArrayList<>();
+	private final @NotNull List<TextFormatter> concatList = new ArrayList<>(0);
 
 	/** The parent formatter. Used when being concatenated to another formatter. */
 	private @Nullable TextFormatter parent;
 	private @Nullable Color foregroundColor;
 	private @Nullable Color backgroundColor;
-	private @NotNull String contents;
 	private @Nullable String concatGap;
+	private @NotNull String contents;
 
 	/**
 	 * Creates a new {@link TextFormatter} with the specified contents.
 	 * @param contents The contents of the formatter.
 	 */
-	public TextFormatter(@NotNull String contents) {
+	protected TextFormatter(@NotNull String contents) {
 		this.contents = contents;
+	}
+
+	/**
+	 * Creates a new {@link TextFormatter} with the specified contents.
+	 * @param contents The contents of the formatter.
+	 */
+	public static TextFormatter of(@NotNull String contents) {
+		return new TextFormatter(contents);
 	}
 
 	/**
@@ -65,16 +73,16 @@ public class TextFormatter {
 	 * @param contents The contents of the formatter.
 	 * @param foreground The foreground color of the formatter.
 	 */
-	public TextFormatter(@NotNull String contents, @Nullable Color foreground) {
-		this(contents);
-		this.foregroundColor = foreground;
+	public static TextFormatter of(@NotNull String contents, @NotNull Color foreground) {
+		return TextFormatter.of(contents).withForegroundColor(foreground);
 	}
 
 	/**
-	 * Creates a new {@link TextFormatter} with no contents.
+	 * Creates a new {@link TextFormatter} with empty contents.
+	 * @return a new {@link TextFormatter} with empty contents
 	 */
-	public TextFormatter() {
-		this.contents = "";
+	public static TextFormatter create() {
+		return new TextFormatter("");
 	}
 
 	/**
@@ -165,7 +173,7 @@ public class TextFormatter {
 	 */
 	public TextFormatter concat(@NotNull String... strings) {
 		for (var str : strings) {
-			this.concatList.add(new TextFormatter(str));
+			this.concatList.add(TextFormatter.of(str));
 		}
 		return this;
 	}
@@ -330,7 +338,7 @@ public class TextFormatter {
 
 	/** Returns a template for a {@link TextFormatter} that is used for errors */
 	public static @NotNull TextFormatter ERROR(@NotNull String msg) {
-		return new TextFormatter(msg, Color.BRIGHT_RED).addFormat(FormatOption.REVERSE, FormatOption.BOLD);
+		return TextFormatter.of(msg, Color.BRIGHT_RED).addFormat(FormatOption.REVERSE, FormatOption.BOLD);
 	}
 
 	/**
