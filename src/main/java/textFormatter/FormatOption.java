@@ -22,7 +22,7 @@ public enum FormatOption {
 	REVERSE(7),
 	/** Hides the text. */
 	HIDDEN(8),
-	STRIKE_THROUGH(9);
+	STRIKETHROUGH(9);
 
 	private final byte value;
 
