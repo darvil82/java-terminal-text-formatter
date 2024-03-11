@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Allows to easily format text for display in a terminal.
+ * Allows easily formatting of text for it to be displayed in a terminal.
  * <p>
  * Multiple formatters can be concatenated together. This is useful for when you want to
  * format a string that has multiple parts that need to be formatted differently.
@@ -21,7 +21,7 @@ public class TextFormatter {
 	 * When set to {@code false}, no formatting will be applied to text. Raw text will be generated without any
 	 * color or formatting.
 	 */
-	public static boolean enableSequences = true;
+	public static boolean enableSequences = !TextFormatter.getNoColorEnvironment();
 
 	/**
 	 * The default color that should be used when no foreground color is specified (if {@link #startWithDefaultColorIfNotDefined}
