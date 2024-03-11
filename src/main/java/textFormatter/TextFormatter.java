@@ -2,6 +2,8 @@ package textFormatter;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import textFormatter.color.Color;
+import textFormatter.color.SimpleColor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +27,7 @@ public class TextFormatter {
 	 * The default color that should be used when no foreground color is specified (if {@link #startWithDefaultColorIfNotDefined}
 	 * is set to {@code true}), or when the foreground color is reset.
 	 */
-	public static @NotNull SimpleColor defaultColor = SimpleColor.BRIGHT_WHITE;
+	public static @NotNull Color defaultColor = SimpleColor.BRIGHT_WHITE;
 
 	/**
 	 * When set to {@code true}, the default color will be used when no foreground color is specified.
@@ -47,8 +49,8 @@ public class TextFormatter {
 
 	/** The parent formatter. Used when being concatenated to another formatter. */
 	private @Nullable TextFormatter parent;
-	private @Nullable SimpleColor foregroundColor;
-	private @Nullable SimpleColor backgroundColor;
+	private @Nullable Color foregroundColor;
+	private @Nullable Color backgroundColor;
 	private @Nullable String concatGap;
 	private @NotNull String contents;
 
@@ -73,7 +75,7 @@ public class TextFormatter {
 	 * @param contents The contents of the formatter.
 	 * @param foreground The foreground color of the formatter.
 	 */
-	public static TextFormatter of(@NotNull String contents, @NotNull SimpleColor foreground) {
+	public static TextFormatter of(@NotNull String contents, @NotNull Color foreground) {
 		return TextFormatter.of(contents).withForegroundColor(foreground);
 	}
 
@@ -83,7 +85,7 @@ public class TextFormatter {
 	 * @param foreground The foreground color of the formatter.
 	 * @param background The background color of the formatter.
 	 */
-	public static TextFormatter of(@NotNull String contents, @NotNull SimpleColor foreground, @NotNull SimpleColor background) {
+	public static TextFormatter of(@NotNull String contents, @NotNull Color foreground, @NotNull Color background) {
 		return TextFormatter.of(contents).withColors(foreground, background);
 	}
 
@@ -129,7 +131,7 @@ public class TextFormatter {
 	 * Sets the foreground color of the formatter.
 	 * @param foreground The foreground color of the formatter.
 	 */
-	public TextFormatter withForegroundColor(@Nullable SimpleColor foreground) {
+	public TextFormatter withForegroundColor(@Nullable Color foreground) {
 		this.foregroundColor = foreground;
 		return this;
 	}
@@ -138,7 +140,7 @@ public class TextFormatter {
 	 * Sets the background color of the formatter.
 	 * @param background The background color of the formatter.
 	 */
-	public TextFormatter withBackgroundColor(@Nullable SimpleColor background) {
+	public TextFormatter withBackgroundColor(@Nullable Color background) {
 		this.backgroundColor = background;
 		return this;
 	}
@@ -148,7 +150,7 @@ public class TextFormatter {
 	 * @param foreground The foreground color of the formatter.
 	 * @param background The background color of the formatter.
 	 */
-	public TextFormatter withColors(@Nullable SimpleColor foreground, @Nullable SimpleColor background) {
+	public TextFormatter withColors(@Nullable Color foreground, @Nullable Color background) {
 		this.foregroundColor = foreground;
 		this.backgroundColor = background;
 		return this;
@@ -286,11 +288,11 @@ public class TextFormatter {
 	}
 
 	/**
-	 * Returns the {@link SimpleColor} that should properly reset the foreground color. This is determined by looking at the
+	 * Returns the {@link Color} that should properly reset the foreground color. This is determined by looking at the
 	 * parent formatters. If no parent formatter has a foreground color, then {@link SimpleColor#BRIGHT_WHITE} is returned.
-	 * @return the {@link SimpleColor} that should properly reset the foreground color
+	 * @return the {@link Color} that should properly reset the foreground color
 	 */
-	private @Nullable SimpleColor getResetFgColor() {
+	private @Nullable Color getResetFgColor() {
 		if (this.parent == null) {
 			if (this.foregroundColor != TextFormatter.defaultColor)
 				return TextFormatter.defaultColor;
@@ -304,11 +306,11 @@ public class TextFormatter {
 	}
 
 	/**
-	 * Returns the {@link SimpleColor} that should properly reset the background color. This is determined by looking at the
+	 * Returns the {@link Color} that should properly reset the background color. This is determined by looking at the
 	 * parent formatters. If no parent formatter has a background color, then {@code null} is returned.
-	 * @return the {@link SimpleColor} that should properly reset the background color
+	 * @return the {@link Color} that should properly reset the background color
 	 */
-	private @Nullable SimpleColor getResetBgColor() {
+	private @Nullable Color getResetBgColor() {
 		if (this.parent == null)
 			return null;
 

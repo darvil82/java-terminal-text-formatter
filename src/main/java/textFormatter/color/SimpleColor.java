@@ -1,6 +1,7 @@
-package textFormatter;
+package textFormatter.color;
 
 import org.jetbrains.annotations.NotNull;
+import textFormatter.TextFormatter;
 
 /**
  * Enumerates the ANSI color codes that a terminal can normally display.
@@ -29,35 +30,22 @@ public enum SimpleColor implements Color {
 		this.value = (byte)value;
 	}
 
-	/**
-	 * Returns the ANSI escape sequence for this color for the text foreground.
-	 * @return The ANSI escape sequence for this color.
-	 */
+	@Override
 	public @NotNull String fg() {
 		return TextFormatter.getSequence(this.value);
 	}
 
-	/**
-	 * Returns the ANSI escape sequence for this color for the text background.
-	 * @return The ANSI escape sequence for this color.
-	 */
+	@Override
 	public @NotNull String bg() {
 		return TextFormatter.getSequence(this.value + 10);
 	}
 
-	/**
-	 * Returns the ANSI escape sequence for this color for the text foreground.
-	 * @return The ANSI escape sequence for this color.
-	 * @see SimpleColor#fg()
-	 */
 	@Override
 	public @NotNull String toString() {
 		return this.fg();
 	}
 
-	/**
-	 * Immutable list of all the dark colors.
-	 */
+	/** Array of all the bright colors. */
 	public static final @NotNull SimpleColor[] BRIGHT_COLORS = {
 		BRIGHT_RED,
 		BRIGHT_GREEN,
@@ -68,9 +56,7 @@ public enum SimpleColor implements Color {
 		BRIGHT_WHITE
 	};
 
-	/**
-	 * Immutable list of all the bright colors.
-	 */
+	/** Array of all the dark colors. */
 	public static final @NotNull SimpleColor[] DARK_COLORS = {
 		RED,
 		GREEN,

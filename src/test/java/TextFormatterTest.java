@@ -1,6 +1,6 @@
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
-import textFormatter.SimpleColor;
+import textFormatter.color.SimpleColor;
 import textFormatter.FormatOption;
 import textFormatter.TextFormatter;
 
