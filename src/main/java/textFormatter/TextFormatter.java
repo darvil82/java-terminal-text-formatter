@@ -384,6 +384,16 @@ public class TextFormatter {
 	}
 
 	/**
+	 * Returns whether there is an environment variable that specifies that
+	 * the terminal does not support color.
+	 * <a href="https://no-color.org/">NO_COLOR.org</a>
+	 * @return {@code true} if the terminal supports color
+	 */
+	public static boolean getNoColorEnvironment() {
+		return System.getenv("NO_COLOR") != null;
+	}
+
+	/**
 	 * Escape character which represents the start of a terminal sequence
 	 */
 	public static final char ESC = '\u001B';
