@@ -1,6 +1,21 @@
 ﻿# Terminal Text Formatter
 
-Text formatting utilities to easily format text on the terminal for Java.
+Text formatting utilities to easily format text in the terminal for Java.
+
+
+## Usage Example
+
+```java
+var text = TextFormatter.of("blue text here, ", TrueColor.of(50, 50, 255))
+   .addFormat(FormatOption.BOLD, FormatOption.ITALIC)
+   .concat(TextFormatter.of("now yellow", SimpleColor.BRIGHT_YELLOW))
+   .concat(" and back to blue");
+
+System.out.println(text);
+```
+
+Javadocs for the latest stable version are provided online [here](https://darvil82.github.io/java-terminal-text-formatter/).
+
 
 ## Installation
 

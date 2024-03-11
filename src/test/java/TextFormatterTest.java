@@ -1,6 +1,6 @@
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
-import textFormatter.Color;
+import textFormatter.color.SimpleColor;
 import textFormatter.FormatOption;
 import textFormatter.TextFormatter;
 
@@ -34,17 +34,17 @@ public class TextFormatterTest {
 
 	@Test
 	public void testForegroundColoring() {
-		var formatter = TextFormatter.of("red text here, ", Color.RED)
+		var formatter = TextFormatter.of("red text here, ", SimpleColor.RED)
 			.concat(
-				TextFormatter.of("blue text here, ", Color.BLUE)
-					.concat(TextFormatter.of("now yellow", Color.BRIGHT_YELLOW))
+				TextFormatter.of("blue text here, ", SimpleColor.BLUE)
+					.concat(TextFormatter.of("now yellow", SimpleColor.BRIGHT_YELLOW))
 					.concat(" and back to blue")
 			)
 			.concat(". back to red");
 
 		check(
-			Color.RED + "red text here, " + Color.BLUE + "blue text here, " + Color.BRIGHT_YELLOW
-				+ "now yellow" + Color.BLUE + " and back to blue" + Color.RED + ". back to red" + Color.BRIGHT_WHITE,
+			SimpleColor.RED + "red text here, " + SimpleColor.BLUE + "blue text here, " + SimpleColor.BRIGHT_YELLOW
+				+ "now yellow" + SimpleColor.BLUE + " and back to blue" + SimpleColor.RED + ". back to red" + SimpleColor.BRIGHT_WHITE,
 			formatter.toString()
 		);
 	}
@@ -52,59 +52,68 @@ public class TextFormatterTest {
 	@Test
 	public void testBackgroundColoring() {
 		var formatter = TextFormatter.of("red background here, ")
-			.withBackgroundColor(Color.RED)
+			.withBackgroundColor(SimpleColor.RED)
 			.concat(
 				TextFormatter.of("blue background here, ")
-					.withBackgroundColor(Color.BLUE)
+					.withBackgroundColor(SimpleColor.BLUE)
 					.concat(
 						TextFormatter.of("now yellow")
-							.withBackgroundColor(Color.BRIGHT_YELLOW)
+							.withBackgroundColor(SimpleColor.BRIGHT_YELLOW)
 					)
 					.concat(" and back to blue")
 			)
 			.concat(". back to red");
 
 		check(
-			Color.BRIGHT_WHITE + Color.RED.bg() + "red background here, " + Color.BLUE.bg()
-				+ "blue background here, " + Color.BRIGHT_YELLOW.bg() + "now yellow" + Color.BLUE.bg()
-				+ " and back to blue" + Color.RED.bg() + ". back to red" + FormatOption.RESET_ALL + Color.BRIGHT_WHITE,
+			SimpleColor.BRIGHT_WHITE + SimpleColor.RED.bg() + "red background here, " + SimpleColor.BLUE.bg()
+				+ "blue background here, " + SimpleColor.BRIGHT_YELLOW.bg() + "now yellow" + SimpleColor.BLUE.bg()
+				+ " and back to blue" + SimpleColor.RED.bg() + ". back to red" + FormatOption.RESET_ALL + SimpleColor.BRIGHT_WHITE,
 			formatter.toString()
 		);
 	}
 
 	@Test
 	public void testMiddleBackground() {
-		var formatter = TextFormatter.of("yellow ", Color.BRIGHT_YELLOW)
+		var formatter = TextFormatter.of("yellow ", SimpleColor.BRIGHT_YELLOW)
 			.concat(
 				TextFormatter.of("blue ")
-					.withBackgroundColor(Color.BLUE)
+					.withBackgroundColor(SimpleColor.BLUE)
 			)
 			.concat(" and back to yellow");
 
 		check(
-			Color.BRIGHT_YELLOW + "yellow " + Color.BLUE.bg() + "blue " + FormatOption.RESET_ALL
-				+ Color.BRIGHT_YELLOW + " and back to yellow" + Color.BRIGHT_WHITE,
+			SimpleColor.BRIGHT_YELLOW + "yellow " + SimpleColor.BLUE.bg() + "blue " + FormatOption.RESET_ALL
+				+ SimpleColor.BRIGHT_YELLOW + " and back to yellow" + SimpleColor.BRIGHT_WHITE,
 			formatter.toString()
 		);
 	}
 
 	@Test
 	public void testEmpty() {
-		var formatter = TextFormatter.of("parent start. ", Color.RED)
+		var formatter = TextFormatter.of("parent start. ", SimpleColor.RED)
 			.concat(
 				TextFormatter.of("red text here, ")
 					.concat(TextFormatter.create().addFormat(FormatOption.ITALIC).concat("subsub"))
 			).concat(" end str");
 
 		check(
-			Color.RED + "parent start. red text here, " + FormatOption.ITALIC + "subsub"
-				+ FormatOption.ITALIC.reset() + " end str" + Color.BRIGHT_WHITE,
+			SimpleColor.RED + "parent start. red text here, " + FormatOption.ITALIC + "subsub"
+				+ FormatOption.ITALIC.reset() + " end str" + SimpleColor.BRIGHT_WHITE,
 			formatter.toString()
 		);
 	}
 
 	@Test
 	public void testStartWithDefault() {
-		check(Color.BRIGHT_WHITE + "test", TextFormatter.of("test", Color.BRIGHT_WHITE).toString());
+		check(SimpleColor.BRIGHT_WHITE + "test", TextFormatter.of("test", SimpleColor.BRIGHT_WHITE).toString());
+	}
+
+	@Test
+	public void testDisabledFormatting() {
+		TextFormatter.enableSequences = false;
+		var formatter = TextFormatter.of("red text here", SimpleColor.RED);
+
+		check("red text here", formatter.toString());
+		TextFormatter.enableSequences = true;
 	}
 }

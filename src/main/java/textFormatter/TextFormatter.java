@@ -2,13 +2,15 @@ package textFormatter;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import textFormatter.color.Color;
+import textFormatter.color.SimpleColor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Allows to easily format text for display in a terminal.
+ * Allows easily formatting of text for it to be displayed in a terminal.
  * <p>
  * Multiple formatters can be concatenated together. This is useful for when you want to
  * format a string that has multiple parts that need to be formatted differently.
@@ -18,14 +20,17 @@ public class TextFormatter {
 	/**
 	 * When set to {@code false}, no formatting will be applied to text. Raw text will be generated without any
 	 * color or formatting.
+	 * <p>
+	 * This will be set to {@code false} if the environment variable {@code NO_COLOR} is set.
+	 * @see #isColorDisabledEnv()
 	 */
-	public static boolean enableSequences = true;
+	public static boolean enableSequences = !TextFormatter.isColorDisabledEnv();
 
 	/**
 	 * The default color that should be used when no foreground color is specified (if {@link #startWithDefaultColorIfNotDefined}
 	 * is set to {@code true}), or when the foreground color is reset.
 	 */
-	public static @NotNull Color defaultColor = Color.BRIGHT_WHITE;
+	public static @NotNull Color defaultColor = SimpleColor.BRIGHT_WHITE;
 
 	/**
 	 * When set to {@code true}, the default color will be used when no foreground color is specified.
@@ -103,7 +108,7 @@ public class TextFormatter {
 	 * @return a new {@link TextFormatter} with the specified contents and the error formatting
 	 * */
 	public static @NotNull TextFormatter error(@NotNull String msg) {
-		return TextFormatter.of(msg, Color.BLACK, Color.BRIGHT_RED).addFormat(FormatOption.BOLD);
+		return TextFormatter.of(msg, SimpleColor.BLACK, SimpleColor.BRIGHT_RED).addFormat(FormatOption.BOLD);
 	}
 
 
@@ -287,7 +292,7 @@ public class TextFormatter {
 
 	/**
 	 * Returns the {@link Color} that should properly reset the foreground color. This is determined by looking at the
-	 * parent formatters. If no parent formatter has a foreground color, then {@link Color#BRIGHT_WHITE} is returned.
+	 * parent formatters. If no parent formatter has a foreground color, then {@link SimpleColor#BRIGHT_WHITE} is returned.
 	 * @return the {@link Color} that should properly reset the foreground color
 	 */
 	private @Nullable Color getResetFgColor() {
@@ -359,19 +364,40 @@ public class TextFormatter {
 	}
 
 	/**
-	 * Returns a string with a terminal sequence with the specified code.
-	 * (e.g. {@code "ESC[<code here>m"})
+	 * Returns a string with a terminal sequence with the specified values, separated by a semicolon.
+	 * (e.g. {@code "ESC[<values here>m"})
 	 * <p>
 	 * If {@link #debug} is set to {@code true}, then the text "ESC" will be used instead of the actual escape
 	 * character.
 	 * </p>
-	 * @param code The code of the sequence.
-	 * @return a string with a terminal sequence with the specified code
+	 * If {@link #enableSequences} is set to {@code false}, then an empty string will be returned.
+	 * @param values The values to add to the terminal sequence.
+	 * @return a string with a terminal sequence with the specified values
 	 */
-	static @NotNull String getSequence(int code) {
+	public static @NotNull String getSequence(@NotNull Object... values) {
+		if (!TextFormatter.enableSequences)
+			return "";
+
+		var joined = String.join(
+			";",
+			Arrays.stream(values)
+				.map(Object::toString)
+				.toArray(String[]::new)
+		);
+
 		if (TextFormatter.debug)
-			return "ESC[" + code + "]";
-		return "" + ESC + '[' + code + 'm';
+			return "ESC[" + joined + "]";
+		return "" + ESC + '[' + joined + 'm';
+	}
+
+	/**
+	 * Returns whether there is an environment variable that specifies that
+	 * the terminal does not support color.
+	 * <a href="https://no-color.org/">NO_COLOR.org</a>
+	 * @return {@code true} if the terminal supports color
+	 */
+	public static boolean isColorDisabledEnv() {
+		return System.getenv("NO_COLOR") != null;
 	}
 
 	/**

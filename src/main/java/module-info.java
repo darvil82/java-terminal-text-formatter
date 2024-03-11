@@ -3,4 +3,5 @@ module textFormatter {
 	requires org.jetbrains.annotations;
 
 	exports textFormatter;
+	exports textFormatter.color;
 }
