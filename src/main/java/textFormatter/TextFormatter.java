@@ -370,10 +370,14 @@ public class TextFormatter {
 	 * If {@link #debug} is set to {@code true}, then the text "ESC" will be used instead of the actual escape
 	 * character.
 	 * </p>
+	 * If {@link #enableSequences} is set to {@code false}, then an empty string will be returned.
 	 * @param values The values to add to the terminal sequence.
 	 * @return a string with a terminal sequence with the specified values
 	 */
 	public static @NotNull String getSequence(@NotNull Object... values) {
+		if (!TextFormatter.enableSequences)
+			return "";
+
 		var joined = String.join(
 			";",
 			Arrays.stream(values)
