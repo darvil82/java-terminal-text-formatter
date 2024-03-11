@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"textFormatter","l":"Color"},{"p":"textFormatter","l":"FormatOption"},{"p":"textFormatter","l":"TextFormatter"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"textFormatter.color","l":"Color"},{"p":"textFormatter","l":"FormatOption"},{"p":"textFormatter.color","l":"SimpleColor"},{"p":"textFormatter","l":"TextFormatter"},{"p":"textFormatter.color","l":"TrueColor"}];updateSearchResults();

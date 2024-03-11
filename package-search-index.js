@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"textFormatter","l":"textFormatter"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"textFormatter","l":"textFormatter"},{"m":"textFormatter","l":"textFormatter.color"}];updateSearchResults();
