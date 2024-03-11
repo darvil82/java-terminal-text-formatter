@@ -10,13 +10,21 @@ import textFormatter.TextFormatter;
  * most modern terminals, but not all.
  */
 public class TrueColor implements Color {
+	/** The color black. */
 	public static final TrueColor BLACK = TrueColor.of(0, 0, 0);
+	/** The color red. */
 	public static final TrueColor RED = TrueColor.of(255, 0, 0);
+	/** The color green. */
 	public static final TrueColor GREEN = TrueColor.of(0, 255, 0);
+	/** The color yellow. */
 	public static final TrueColor YELLOW = TrueColor.of(255, 255, 0);
+	/** The color blue. */
 	public static final TrueColor BLUE = TrueColor.of(0, 0, 255);
+	/** The color magenta. */
 	public static final TrueColor MAGENTA = TrueColor.of(255, 0, 255);
+	/** The color cyan. */
 	public static final TrueColor CYAN = TrueColor.of(0, 255, 255);
+	/** The color white. */
 	public static final TrueColor WHITE = TrueColor.of(255, 255, 255);
 
 
