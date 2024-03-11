@@ -107,4 +107,13 @@ public class TextFormatterTest {
 	public void testStartWithDefault() {
 		check(SimpleColor.BRIGHT_WHITE + "test", TextFormatter.of("test", SimpleColor.BRIGHT_WHITE).toString());
 	}
+
+	@Test
+	public void testDisabledFormatting() {
+		TextFormatter.enableSequences = false;
+		var formatter = TextFormatter.of("red text here", SimpleColor.RED);
+
+		check("red text here", formatter.toString());
+		TextFormatter.enableSequences = true;
+	}
 }

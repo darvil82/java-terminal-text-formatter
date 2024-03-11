@@ -20,8 +20,11 @@ public class TextFormatter {
 	/**
 	 * When set to {@code false}, no formatting will be applied to text. Raw text will be generated without any
 	 * color or formatting.
+	 * <p>
+	 * This will be set to {@code false} if the environment variable {@code NO_COLOR} is set.
+	 * @see #isColorDisabledEnv()
 	 */
-	public static boolean enableSequences = !TextFormatter.getNoColorEnvironment();
+	public static boolean enableSequences = !TextFormatter.isColorDisabledEnv();
 
 	/**
 	 * The default color that should be used when no foreground color is specified (if {@link #startWithDefaultColorIfNotDefined}
@@ -389,7 +392,7 @@ public class TextFormatter {
 	 * <a href="https://no-color.org/">NO_COLOR.org</a>
 	 * @return {@code true} if the terminal supports color
 	 */
-	public static boolean getNoColorEnvironment() {
+	public static boolean isColorDisabledEnv() {
 		return System.getenv("NO_COLOR") != null;
 	}
 
