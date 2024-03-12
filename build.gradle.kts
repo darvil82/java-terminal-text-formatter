@@ -4,13 +4,13 @@ plugins {
 }
 
 group = "com.darvil"
-version = "2.1.0"
+version = "2.1.0b"
 description = "Text formatting utilities to easily format text on the terminal for Java."
 
 dependencies {
     implementation("com.darvil:utils:+")
 
-    implementation("org.jetbrains:annotations:24.0.0")
+    compileOnly("org.jetbrains:annotations:24.1.0")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
