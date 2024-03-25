@@ -47,8 +47,8 @@ public class TextFormatter {
 	/** A list of all the formatting options that should be applied to the text. */
 	private final @NotNull ArrayList<FormatOption> formatOptions = new ArrayList<>(5);
 
-	/** A list of all the formatters that should be concatenated to this formatter. */
-	private final @NotNull List<TextFormatter> concatList = new ArrayList<>(0);
+	/** A list of all the values that should be concatenated to this formatter. */
+	private final @NotNull List<Object> concatList = new ArrayList<>(0);
 
 	/** The parent formatter. Used when being concatenated to another formatter. */
 	private @Nullable TextFormatter parent;
@@ -179,30 +179,33 @@ public class TextFormatter {
 	}
 
 	/**
-	 * Concatenates the specified formatters to this formatter.
-	 * @param formatters The formatters to concatenate.
+	 * Concatenates the specified values to the formatter. Another {@link TextFormatter} may also be concatenated.
+	 * @param objects The values to concatenate.
 	 */
-	public TextFormatter concat(@NotNull TextFormatter... formatters) {
-		for (TextFormatter formatter : formatters) {
-			// if it was already added to another formatter, throw an exception
-			if (formatter.parent != null) {
-				throw new IllegalArgumentException("Cannot concatenate a formatter that is already concatenated to another formatter.");
+	public TextFormatter concat(@NotNull Object... objects) {
+		for (var object : objects) {
+			if (object instanceof TextFormatter tf) {
+				this.concatFormatter(tf);
+				continue;
 			}
-			formatter.parent = this;
-			this.concatList.add(formatter);
+
+			this.concatList.add(object);
 		}
+
 		return this;
 	}
 
 	/**
-	 * Concatenates the specified strings to this formatter.
-	 * @param strings The strings to concatenate.
+	 * Properly concatenates the specified formatter to this formatter by also linking both formatters together.
+	 * @param formatter The formatter to concatenate.
 	 */
-	public TextFormatter concat(@NotNull String... strings) {
-		for (var str : strings) {
-			this.concatList.add(TextFormatter.of(str));
-		}
-		return this;
+	private void concatFormatter(@NotNull TextFormatter formatter) {
+		// if it was already added to another formatter, throw an exception
+		if (formatter.parent != null)
+			throw new IllegalArgumentException("Cannot concatenate a formatter that is already concatenated to another formatter.");
+
+		formatter.parent = this;
+		this.concatList.add(formatter);
 	}
 
 	/**
