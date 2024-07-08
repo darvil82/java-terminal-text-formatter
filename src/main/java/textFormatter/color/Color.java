@@ -20,5 +20,6 @@ public interface Color {
 	 * @return The ANSI escape sequence for this color.
 	 * @see SimpleColor#fg()
 	 */
+	@Override
 	@NotNull String toString();
 }
