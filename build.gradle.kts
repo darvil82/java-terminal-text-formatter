@@ -8,7 +8,7 @@ version = "2.2.0"
 description = "Text formatting utilities to easily format text on the terminal for Java."
 
 dependencies {
-    implementation("com.darvil:utils:0.6.1")
+    implementation("com.darvil:utils:0.6.1b")
 
     implementation("org.jetbrains:annotations:24.0.0")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
@@ -24,6 +24,7 @@ java {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven("https://repsy.io/mvn/darvil/java")
 }
 

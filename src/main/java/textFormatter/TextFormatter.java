@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import textFormatter.color.Color;
 import textFormatter.color.SimpleColor;
+import utils.UtlString;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -390,7 +391,7 @@ public class TextFormatter {
 
 		if (TextFormatter.debug)
 			return "ESC[" + joined + "]";
-		return "" + ESC + '[' + joined + 'm';
+		return "" + UtlString.ESCAPE_CHAR + '[' + joined + 'm';
 	}
 
 	/**
@@ -402,9 +403,4 @@ public class TextFormatter {
 	public static boolean isColorDisabledEnv() {
 		return System.getenv("NO_COLOR") != null;
 	}
-
-	/**
-	 * Escape character which represents the start of a terminal sequence
-	 */
-	public static final char ESC = '\u001B';
 }

@@ -18,7 +18,7 @@ public interface Color {
 	/**
 	 * Returns the ANSI escape sequence for this color for the text foreground.
 	 * @return The ANSI escape sequence for this color.
-	 * @see SimpleColor#fg()
+	 * @see Color#fg()
 	 */
 	@Override
 	@NotNull String toString();
