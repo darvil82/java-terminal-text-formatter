@@ -23,7 +23,7 @@ The package is currently available on Repsy and GitHub Packages.
 
 1. Add the following to your `repositories` block:
    ```kotlin
-   maven("https://repsy.io/mvn/darvil/java")
+   maven("https://api.repsy.io/mvn/darvil/java")
    ```
 
 2. And add the following to your `dependencies` block:
