@@ -14,7 +14,7 @@ var text = TextFormatter.of("blue text here, ", TrueColor.of(50, 50, 255))
 System.out.println(text);
 ```
 
-Javadocs for the latest stable version are provided online [here](https://darvil82.github.io/java-terminal-text-formatter/).
+Javadocs for the latest stable version are provided online [here](https://apidia.net/mvn/com.darvil/terminal-text-formatter/).
 
 
 ## Installation
