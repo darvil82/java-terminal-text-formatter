@@ -1,55 +1,59 @@
 plugins {
     java
-    `maven-publish`
+	id("com.vanniktech.maven.publish") version "0.34.0"
 }
 
-group = "com.darvil"
+group = "io.github.darvil82"
 version = "2.2.0"
 description = "Text formatting utilities to easily format text on the terminal for Java."
 
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
 dependencies {
-    implementation("com.darvil:utils:0.6.1b")
+    implementation("io.github.darvil82:utils:0.7.1")
 
     implementation("org.jetbrains:annotations:24.0.0")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
+mavenPublishing {
+	publishToMavenCentral()
+	signAllPublications()
+	coordinates(group.toString(), name.toString(), version.toString())
 
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven("https://api.repsy.io/mvn/darvil/java")
-}
-
-publishing {
-    repositories {
-        maven {
-            name = "Github"
-            url = uri("https://maven.pkg.github.com/darvil82/java-terminal-text-formatter")
-            credentials(PasswordCredentials::class)
-        }
-
-        maven {
-            name = "Repsy"
-            url = uri("https://api.repsy.io/mvn/darvil/java")
-            credentials(PasswordCredentials::class)
-        }
-
-        mavenLocal()
-    }
-
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-        }
-    }
+	pom {
+		name.set("Terminal Text Formatter")
+		description.set(project.description)
+		inceptionYear.set("2023")
+		url.set("https://github.com/darvil82/java-terminal-text-formatter")
+		licenses {
+			license {
+				name.set("MIT License")
+				url.set("https://opensource.org/license/mit")
+				distribution.set("https://opensource.org/license/mit")
+			}
+		}
+		developers {
+			developer {
+				id.set("darvil82")
+				name.set("darvil82")
+				url.set("https://github.com/darvil82/")
+			}
+		}
+		scm {
+			url.set("https://github.com/darvil82/java-terminal-text-formatter")
+			connection.set("scm:git:git://github.com/darvil82/java-terminal-text-formatter.git")
+			developerConnection.set("scm:git:ssh://git@github.com/darvil82/java-terminal-text-formatter.git")
+		}
+	}
 }
 
 tasks.withType<JavaCompile>().configureEach {
