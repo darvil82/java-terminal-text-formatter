@@ -19,17 +19,13 @@ Javadocs for the latest stable version are provided online [here](https://apidia
 
 ## Installation
 
-The package is currently available on Repsy and GitHub Packages.
+The package is currently available on Maven Central.
 
-1. Add the following to your `repositories` block:
-   ```kotlin
-   maven("https://api.repsy.io/mvn/darvil/java")
-   ```
+Add the following to your `dependencies` block:
+```kotlin
+implementation("io.github.darvil82:terminal-text-formatter:+")
+```
 
-2. And add the following to your `dependencies` block:
-   ```kotlin
-   implementation("com.darvil:terminal-text-formatter:+")
-   ```
 > [!NOTE]
 > The `+` symbol is a wildcard that will automatically use the latest version of the package.
-> You can also specify a specific version (e.g. `0.0.1`).
+> You can also specify a specific version.
