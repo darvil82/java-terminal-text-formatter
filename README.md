@@ -1,4 +1,7 @@
-﻿# Terminal Text Formatter
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.darvil82/terminal-text-formatter)](https://central.sonatype.com/artifact/io.github.darvil82/terminal-text-formatter)
+[![APIdia](https://apidia.net/mvn/io.github.darvil82/terminal-text-formatter/badge.svg)](https://apidia.net/mvn/io.github.darvil82/terminal-text-formatter)
+
+ # Terminal Text Formatter
 
 Text formatting utilities to easily format text in the terminal for Java.
 
@@ -14,7 +17,8 @@ var text = TextFormatter.of("blue text here, ", TrueColor.of(50, 50, 255))
 System.out.println(text);
 ```
 
-Javadocs for the latest stable version are provided online [here](https://apidia.net/mvn/com.darvil/terminal-text-formatter/).
+Javadocs for the latest stable version are available online hosted on [APIdia](https://apidia.net/mvn/io.github.darvil82/terminal-text-formatter)
+and on [GitHub pages](https://darvil82.github.io/java-terminal-text-formatter).
 
 
 ## Installation
