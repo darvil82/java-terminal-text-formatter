@@ -1,7 +1,7 @@
+ # Terminal Text Formatter
+
 [![Maven Central Version](https://img.shields.io/maven-central/v/io.github.darvil82/terminal-text-formatter)](https://central.sonatype.com/artifact/io.github.darvil82/terminal-text-formatter)
 [![APIdia](https://apidia.net/mvn/io.github.darvil82/terminal-text-formatter/badge.svg)](https://apidia.net/mvn/io.github.darvil82/terminal-text-formatter)
-
- # Terminal Text Formatter
 
 Text formatting utilities to easily format text in the terminal for Java.
 
