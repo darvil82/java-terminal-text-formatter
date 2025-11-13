@@ -1,4 +1,4 @@
-package io.github.darvil82.terminal.textformatter.color;
+package io.github.darvil.terminal.textformatter.color;
 
 import org.jetbrains.annotations.NotNull;
 

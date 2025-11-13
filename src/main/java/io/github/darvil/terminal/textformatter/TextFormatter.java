@@ -1,10 +1,10 @@
-package io.github.darvil82.terminal.textformatter;
+package io.github.darvil.terminal.textformatter;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import io.github.darvil82.terminal.textformatter.color.Color;
-import io.github.darvil82.terminal.textformatter.color.SimpleColor;
-import utils.UtlString;
+import io.github.darvil.terminal.textformatter.color.Color;
+import io.github.darvil.terminal.textformatter.color.SimpleColor;
+import io.github.darvil.utils.UtlString;
 
 import java.util.ArrayList;
 import java.util.Arrays;

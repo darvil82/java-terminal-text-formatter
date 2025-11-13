@@ -1,7 +1,7 @@
-module io.github.darvil82.terminal.textformatter {
-	requires io.github.darvil82.utils;
+module io.github.darvil.terminal.textformatter {
+	requires io.github.darvil.utils;
 	requires org.jetbrains.annotations;
 
-	exports io.github.darvil82.terminal.textformatter;
-	exports io.github.darvil82.terminal.textformatter.color;
+	exports io.github.darvil.terminal.textformatter;
+	exports io.github.darvil.terminal.textformatter.color;
 }

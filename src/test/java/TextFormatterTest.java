@@ -1,8 +1,8 @@
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
-import io.github.darvil82.terminal.textformatter.color.SimpleColor;
-import io.github.darvil82.terminal.textformatter.FormatOption;
-import io.github.darvil82.terminal.textformatter.TextFormatter;
+import io.github.darvil.terminal.textformatter.color.SimpleColor;
+import io.github.darvil.terminal.textformatter.FormatOption;
+import io.github.darvil.terminal.textformatter.TextFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
