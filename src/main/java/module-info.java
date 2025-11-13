@@ -1,5 +1,5 @@
 module darvil.textFormatter {
-	requires utils;
+	requires darvil.utils;
 	requires org.jetbrains.annotations;
 
 	exports textFormatter;
