@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"darvil.textFormatter","l":"textFormatter"},{"m":"darvil.textFormatter","l":"textFormatter.color"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"io.github.darvil.terminal.textformatter","l":"io.github.darvil.terminal.textformatter"},{"m":"io.github.darvil.terminal.textformatter","l":"io.github.darvil.terminal.textformatter.color"}];updateSearchResults();

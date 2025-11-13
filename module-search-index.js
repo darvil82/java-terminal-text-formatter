@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"darvil.textFormatter"}];updateSearchResults();
+moduleSearchIndex = [{"l":"io.github.darvil.terminal.textformatter"}];updateSearchResults();
