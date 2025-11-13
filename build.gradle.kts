@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.darvil82:utils:0.8b")
+    implementation("io.github.darvil82:utils:0.8.0b")
 
     implementation("org.jetbrains:annotations:24.0.0")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
