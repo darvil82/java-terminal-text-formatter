@@ -1,4 +1,4 @@
-module textFormatter {
+module darvil.textFormatter {
 	requires utils;
 	requires org.jetbrains.annotations;
 
