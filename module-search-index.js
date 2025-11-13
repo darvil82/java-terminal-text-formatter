@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"textFormatter"}];updateSearchResults();
+moduleSearchIndex = [{"l":"darvil.textFormatter"}];updateSearchResults();
