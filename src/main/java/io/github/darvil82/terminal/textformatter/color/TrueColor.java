@@ -1,7 +1,7 @@
-package textFormatter.color;
+package io.github.darvil82.terminal.textformatter.color;
 
 import org.jetbrains.annotations.NotNull;
-import textFormatter.TextFormatter;
+import io.github.darvil82.terminal.textformatter.TextFormatter;
 
 /**
  * Represents a true color in the RGB color space.

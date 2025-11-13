@@ -1,9 +1,9 @@
-package textFormatter;
+package io.github.darvil82.terminal.textformatter;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import textFormatter.color.Color;
-import textFormatter.color.SimpleColor;
+import io.github.darvil82.terminal.textformatter.color.Color;
+import io.github.darvil82.terminal.textformatter.color.SimpleColor;
 import utils.UtlString;
 
 import java.util.ArrayList;

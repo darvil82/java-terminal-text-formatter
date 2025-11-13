@@ -1,4 +1,4 @@
-package textFormatter;
+package io.github.darvil82.terminal.textformatter;
 
 import org.jetbrains.annotations.NotNull;
 

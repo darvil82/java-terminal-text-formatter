@@ -1,4 +1,4 @@
-package textFormatter.color;
+package io.github.darvil82.terminal.textformatter.color;
 
 import org.jetbrains.annotations.NotNull;
 

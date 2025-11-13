@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.darvil82"
-version = "2.3.0"
+version = "2.3.0b"
 description = "Text formatting utilities to easily format text on the terminal for Java."
 
 java {
